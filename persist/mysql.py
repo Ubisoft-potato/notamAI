@@ -24,13 +24,13 @@ def create_ssh_tunnel_for_local(mysql_host, ssh_host: str):
     )
 
 
-def create_mysql_engine(host: str, user: str, password: str, database: str):
+def create_mysql_engine(host: str, user: str, password: str, database: str, echo: bool = True):
     return create_engine(f'mysql+pymysql://{user}:{password}@{host}/{database}',
-                         echo=True, pool_recycle=60 * 5, pool_pre_ping=True)
+                         echo=echo, pool_recycle=60 * 5, pool_pre_ping=True)
 
 
 class MySQLEngine:
-    def __init__(self):
+    def __init__(self, echo: bool = True):
         mysql_host = os.getenv('MYSQL_HOST')
         if os.getenv('IS_DEV') == "1":
             server = create_ssh_tunnel_for_local('127.0.0.1', os.getenv('SSH_HOST'))
@@ -40,7 +40,8 @@ class MySQLEngine:
         self.engine = create_mysql_engine(mysql_host,
                                           os.getenv('MYSQL_USER'),
                                           os.getenv('MYSQL_PASSWORD'),
-                                          os.getenv('MYSQL_DATABASE'))
+                                          os.getenv('MYSQL_DATABASE'),
+                                          echo)
         Base.metadata.create_all(self.engine)
 
     def get_engine(self):
