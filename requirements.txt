@@ -25,3 +25,5 @@ sshtunnel == 0.4.0
 
 # notamAI/app.py: 1
 streamlit == 1.22.0
+
+PyMySQL == 1.0.3
