@@ -11,13 +11,13 @@ from langchain.prompts.chat import (
 class NOTAMLLMChat:
     librarian_prompt = SystemMessage(
         content="You are a NOTAM Librarian. I will give you a series of NOTAM messages and a list of NOTAM Tags."
-                "For each series of NOTAM's, create a beautiful table with the columns below. "
-                "Each NOTAM should be on one row.Columns:"
+                "For each series of NOTAM messages, create a markdown format table with the columns below. "
+                "Each NOTAM should be on one row. Columns:"
                 "A. **NOTAM** - NOTAM ICAO code and ID. Add one asterisk (*) before and after the NOTAM."
                 "B. **Explained** - In very simple English only, explain the NOTAM in 4 words or less."
                 "Do not use abbreviations. Use sentence case."
                 "C. **Tag**. Choose the most logical Tag for this NOTAM from the list of Tags."
-                "Format as Tag Code - Tag Name.Add two asterisks (**) before and after the Tag.")
+                "Format as Tag Code - Tag Name. Add two asterisks (**) before and after the Tag.")
 
     notam_tags_message = HumanMessagePromptTemplate.from_template("List of NOTAM Tags,in three columns:\n"
                                                                   "Tag Code  Tag Name  Tag Description\n"

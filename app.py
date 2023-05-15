@@ -63,19 +63,18 @@ if __name__ == '__main__':
     with st.container():
         with st.form("notams_form"):
             options = st.multiselect(
-                'Please choose the NOTAM you want to send to AI',
+                'Please choose the NOTAM message id you want to send to AI (limit to 5)',
                 notam_dataframe,
                 max_selections=5)
             submitted = st.form_submit_button("Submit")
         if submitted:
             if len(options) == 0:
-                st.error('Please Choose at least one notam message', icon="🚨")
+                st.error('Please Choose at least one NOTAM message', icon="🚨")
             else:
                 with st.spinner('🤔 ️Waiting for AI...'):
                     notam_messages = get_notam_messages(engine.get_engine(), options)
                     with get_openai_callback() as cb:
                         notam_table = notam_llm_chat.chat_to_get_notam_about(notam_tags, notam_messages)
-                    # cb.total_cost
                 st.markdown(f"Cost: **:blue[{cb.total_cost}]** USD")
                 st.divider()
                 st.markdown("🤖️ AI's response:")
