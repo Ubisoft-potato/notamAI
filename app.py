@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 from dotenv import load_dotenv
+from langchain.callbacks import get_openai_callback
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
 
@@ -72,5 +73,10 @@ if __name__ == '__main__':
             else:
                 with st.spinner('🤔 ️Waiting for AI...'):
                     notam_messages = get_notam_messages(engine.get_engine(), options)
-                    notam_table = notam_llm_chat.chat_to_get_notam_about(notam_tags, notam_messages)
+                    with get_openai_callback() as cb:
+                        notam_table = notam_llm_chat.chat_to_get_notam_about(notam_tags, notam_messages)
+                    # cb.total_cost
+                st.markdown(f"Cost: **:blue[{cb.total_cost}]** USD")
+                st.divider()
+                st.markdown("🤖️ AI's response:")
                 st.markdown(notam_table)
