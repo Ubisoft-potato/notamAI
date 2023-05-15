@@ -43,7 +43,7 @@ def get_notams_dataframe(e: Engine):
 
 
 def show_notams_table(notam_data: pd.DataFrame):
-    with st.expander("NOTAM messages"):
+    with st.expander("NOTAM messages (20 in total for demo purpose)", expanded=True):
         st.dataframe(notam_data)
 
 
@@ -70,6 +70,7 @@ if __name__ == '__main__':
             if len(options) == 0:
                 st.error('Please Choose at least one notam message', icon="🚨")
             else:
-                notam_messages = get_notam_messages(engine.get_engine(), options)
-                notam_table = notam_llm_chat.chat_to_get_notam_about(notam_tags, notam_messages)
+                with st.spinner('🤔 ️Waiting for AI...'):
+                    notam_messages = get_notam_messages(engine.get_engine(), options)
+                    notam_table = notam_llm_chat.chat_to_get_notam_about(notam_tags, notam_messages)
                 st.markdown(notam_table)
