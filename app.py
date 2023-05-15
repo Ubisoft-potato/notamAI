@@ -63,11 +63,13 @@ if __name__ == '__main__':
         with st.form("notams_form"):
             options = st.multiselect(
                 'Please choose the NOTAM you want to send to AI',
-                notam_dataframe)
+                notam_dataframe,
+                max_selections=5)
             submitted = st.form_submit_button("Submit")
         if submitted:
             if len(options) == 0:
                 st.error('Please Choose at least one notam message', icon="🚨")
-            notam_messages = get_notam_messages(engine.get_engine(), options)
-            notam_table = notam_llm_chat.chat_to_get_notam_about(notam_tags, notam_messages)
-            st.markdown(notam_dataframe)
+            else:
+                notam_messages = get_notam_messages(engine.get_engine(), options)
+                notam_table = notam_llm_chat.chat_to_get_notam_about(notam_tags, notam_messages)
+                st.markdown(notam_table)
