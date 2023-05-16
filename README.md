@@ -24,7 +24,7 @@ The code is structured as follows:
 
 ## Setup
 
-### config env variables
+### Config env variables
 
 The following variables are required to run the application, save it to `.env` file
 
@@ -32,11 +32,15 @@ The following variables are required to run the application, save it to `.env` f
 MYSQL_HOST=xxx
 MYSQL_USER=xxx
 MYSQL_PASSWORD=xxx
-MYSQL_DATABASE=xxx
+MYSQL_DATABASE=notam_ai 
 
 OPENAI_API_KEY=xxx
 NOTAM_API_KEY=xxx
 ```
+
+### Setup MySQL
+
+Use `data/notam.sql` and `data/notam_tag.sql` to create the database and tables
 
 ### Install dependencies
 
@@ -64,6 +68,5 @@ Use the following command to run the api server, and open the browser at `http:/
 the api docs
 
 ```bash
-
 uvicorn api_server:app --host 0.0.0.0 --port 8081
 ```
