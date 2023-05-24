@@ -26,12 +26,13 @@ class NOTAMLLMChat:
     ai_wait_resp = AIMessage(content="Understood. Waiting for the NOTAM messages.")
     notam_messages = HumanMessagePromptTemplate.from_template("{notams}")
 
-    def __init__(self):
+    def __init__(self, verbose: bool = False):
         self.chat = ChatOpenAI()
         self.llm_chain = LLMChain(
             llm=self.chat,
             prompt=ChatPromptTemplate.from_messages([self.librarian_prompt, self.notam_tags_message, self.ai_wait_resp,
-                                                     self.notam_messages])
+                                                     self.notam_messages]),
+            verbose=verbose
         )
 
     def chat_to_get_notam_about(self, notam_tags, notam_messages: str) -> str:
