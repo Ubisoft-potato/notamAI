@@ -12,7 +12,7 @@ fastapi == 0.95.1
 # notamAI/app.py: 4
 # notamAI/notam_llm.py: 3
 # notamAI/notebooks/notam_ai.ipynb: 50
-langchain == 0.0.167
+langchain == 0.0.246
 
 # notamAI/app.py: 1
 # notamAI/notebooks/notam_ai.ipynb: 2
